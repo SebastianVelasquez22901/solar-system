@@ -11,7 +11,7 @@ interface MercurioProps {
 export function Mercurio({ alHacerClick, activo }: MercurioProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
-  const colorMap = useTexture('/textures/mercury.webp')
+  const colorMap = useTexture('./textures/mercury.webp')
 
   useFrame(() => {
     if (orbitaRef.current) {

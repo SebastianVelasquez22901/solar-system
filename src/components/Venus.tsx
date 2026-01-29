@@ -11,7 +11,7 @@ interface VenusProps {
 export function Venus({ alHacerClick, activo }: VenusProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const planetaRef = useRef<THREE.Group>(null!)
-  const [surfaceMap, atmosphereMap] = useTexture(['/textures/venus_surface.webp', '/textures/venus_atmosphere.webp'])
+  const [surfaceMap, atmosphereMap] = useTexture(['./textures/venus_surface.webp', './textures/venus_atmosphere.webp'])
 
   useFrame(() => {
     if (orbitaRef.current) {

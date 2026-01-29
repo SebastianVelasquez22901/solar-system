@@ -14,7 +14,7 @@ interface TierraProps {
 export function Tierra({ alHacerClick, alHacerClickLuna, activo, lunaActiva }: TierraProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const planetaRef = useRef<THREE.Group>(null!)
-  const [colorMap, cloudsMap] = useTexture(['/textures/earth.webp', '/textures/earth_clouds.webp'])
+  const [colorMap, cloudsMap] = useTexture(['./textures/earth.webp', './textures/earth_clouds.webp'])
 
   useFrame(() => {
     if (orbitaRef.current) {

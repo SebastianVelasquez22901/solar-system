@@ -10,7 +10,7 @@ interface SolProps {
 export function Sol({ alHacerClick }: SolProps) {
   const solRef = useRef<THREE.Mesh>(null!)
   // Asegúrate de tener la textura 'sun.jpg'
-  const colorMap = useTexture('/textures/sun.webp')
+  const colorMap = useTexture('./textures/sun.webp')
 
   useFrame(() => {
     if (solRef.current) {

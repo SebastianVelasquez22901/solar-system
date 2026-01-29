@@ -11,7 +11,7 @@ interface LunaProps {
 export function Luna({ alHacerClick, activo }: LunaProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const lunaMeshRef = useRef<THREE.Mesh>(null!)
-  const colorMap = useTexture('/textures/moon.webp')
+  const colorMap = useTexture('./textures/moon.webp')
 
   useFrame(() => {
     if (orbitaRef.current) {

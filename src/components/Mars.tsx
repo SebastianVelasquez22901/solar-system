@@ -11,7 +11,7 @@ interface MarteProps {
 export function Marte({ alHacerClick, activo }: MarteProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
-  const colorMap = useTexture('/textures/mars.webp')
+  const colorMap = useTexture('./textures/mars.webp')
 
   useFrame(() => {
     if (orbitaRef.current) {
