@@ -1,0 +1,46 @@
+[
+  {
+    "id": "sol",
+    "nombre": "El Sol",
+    "descripcion": "La estrella en el centro de nuestro sistema solar. Es una esfera casi perfecta de plasma caliente.",
+    "datosCuriosos": [
+      "Representa el 99.86% de la masa del sistema solar.",
+      "La luz tarda 8 minutos en llegar a la Tierra.",
+      "Su temperatura superficial es de 5,500 °C."
+    ]
+  },
+  {
+    "id": "tierra",
+    "nombre": "Planeta Tierra",
+    "descripcion": "Nuestro hogar. El único lugar conocido con vida.",
+    "datosCuriosos": ["Tiene un campo magnético protector.", "Su atmósfera es 78% nitrógeno."]
+  },
+  {
+    "id": "luna",
+    "nombre": "La Luna",
+    "descripcion": "Satélite natural de la Tierra.",
+    "datosCuriosos": ["Se está alejando de la Tierra.", "Controla las mareas."]
+  },
+  {
+    "id": "venus",
+    "nombre": "Venus",
+    "descripcion": "El planeta más caliente del sistema solar debido a su efecto invernadero.",
+    "datosCuriosos": ["Un día en Venus dura más que un año en Venus.", "Gira en sentido contrario.", "Temperatura de 462°C."]
+  },
+  {
+    "id": "marte",
+    "nombre": "Marte",
+    "descripcion": "El planeta rojo. Candidato para la colonización.",
+    "datosCuriosos": ["Tiene el volcán más alto (Monte Olimpo).", "Tiene dos lunas: Fobos y Deimos.", "Es rojo por óxido de hierro."]
+  },
+  {
+    "id": "mercurio",
+    "nombre": "Mercurio",
+    "descripcion": "El planeta más pequeño y cercano al Sol. Tiene temperaturas extremas y carece de atmósfera significativa.",
+    "datosCuriosos": [
+      "Un año en Mercurio dura solo 88 días terrestres.",
+      "Tiene arrugas (escarpes) porque se está encogiendo al enfriarse.",
+      "A pesar de estar tan cerca del Sol, tiene hielo en sus cráteres polares."
+    ]
+  }
+]
