@@ -20,9 +20,7 @@ export function Sol({ alHacerClick }: SolProps) {
 
   return (
     <group>
-      {/* Luz que emite el sol */}
       <pointLight intensity={2} decay={0} distance={300} color="#ffaa00" />
-      <ambientLight intensity={0.1} />
 
       <mesh 
         ref={solRef} 

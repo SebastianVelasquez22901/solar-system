@@ -1,11 +1,15 @@
 import { useState, useEffect, Suspense } from 'react'
 import { Canvas, useThree, type ThreeEvent } from '@react-three/fiber'
-import { OrbitControls, Stars, useProgress } from '@react-three/drei'
+import { OrbitControls, Stars, useProgress, AdaptiveDpr } from '@react-three/drei'
 import { Tierra } from './components/Earth'
 import { Venus } from './components/Venus'
 import { Marte } from './components/Mars'
 import { Mercurio } from './components/Mercury'
 import { Sol } from './components/Sun'
+import { Jupiter } from './components/Jupiter'
+import { Saturno } from './components/Saturn'
+import { Urano } from './components/Uranus'
+import { Neptuno } from './components/Neptune'
 import datosPlanetas from './data/planetas.json'
 import gsap from 'gsap'
 import * as THREE from 'three'
@@ -14,9 +18,13 @@ import * as THREE from 'three'
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    let timer: ReturnType<typeof setTimeout>
+    const handleResize = () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => setIsMobile(window.innerWidth < 768), 150)
+    }
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return () => { window.removeEventListener('resize', handleResize); clearTimeout(timer) }
   }, [])
   return isMobile
 }
@@ -56,8 +64,12 @@ function ControladorCamara({ objetivo, isMobile }: { objetivo: any, isMobile: bo
       mercurio: 25,
       venus: 45,
       tierra: 70,
-      luna: 75, // <--- CLAVE: 70 (Tierra) + 5 (Distancia Luna) = 75
-      marte: 100
+      luna: 75,
+      marte: 100,
+      jupiter: 145,
+      saturno: 195,
+      urano: 240,
+      neptuno: 290,
     }
 
     if (objetivo) {
@@ -65,7 +77,6 @@ function ControladorCamara({ objetivo, isMobile }: { objetivo: any, isMobile: bo
       const targetX = X_PLANETAS[idLimpio]
 
       if (targetX === undefined) return
-      console.log("Enfocando:", idLimpio, "en X:", targetX)
 
       // Configuración de Zoom por defecto
       let distZ = 12 
@@ -73,25 +84,31 @@ function ControladorCamara({ objetivo, isMobile }: { objetivo: any, isMobile: bo
       let fov = 35
 
       // Ajustes específicos por planeta
-      if (idLimpio === 'mercurio') { distZ = 8; heightY = 2; fov = 30; }
-      if (idLimpio === 'venus') { distZ = 12; heightY = 3; fov = 30; }
-      
-      // ZOOM LUNA: Nos acercamos más para que se vea bien
-      if (idLimpio === 'luna') { distZ = 6; heightY = 1; fov = 25; }     
-      
-      if (idLimpio === 'tierra') { distZ = 14; heightY = 4; fov = 35; }
-      if (idLimpio === 'sol') { distZ = 60; heightY = 10; fov = 45; }
+      if (idLimpio === 'mercurio') { distZ = 8;  heightY = 2;  fov = 30; }
+      if (idLimpio === 'venus')    { distZ = 12; heightY = 3;  fov = 30; }
+      if (idLimpio === 'luna')     { distZ = 6;  heightY = 1;  fov = 25; }
+      if (idLimpio === 'tierra')   { distZ = 14; heightY = 4;  fov = 35; }
+      if (idLimpio === 'sol')      { distZ = 60; heightY = 10; fov = 45; }
+      if (idLimpio === 'jupiter')  { distZ = 28; heightY = 10; fov = 40; }
+      if (idLimpio === 'saturno')  { distZ = 40; heightY = 14; fov = 40; }
+      if (idLimpio === 'urano')    { distZ = 22; heightY = 8;  fov = 35; }
+      if (idLimpio === 'neptuno')  { distZ = 22; heightY = 8;  fov = 35; }
 
       if (isMobile) {
         distZ += 8
         heightY += 4
       }
 
+      // Matar tweens anteriores para evitar solapamiento
+      gsap.killTweensOf(camera.position)
+      gsap.killTweensOf(camera)
+      if (controls) gsap.killTweensOf(controls.target)
+
       // 1. ANIMAR OBJETIVO DE CONTROLES (El pivote de rotación)
       if (controls) {
         gsap.to(controls.target, {
           duration: 1.5,
-          x: targetX, // Centramos la rotación en el planeta seleccionado
+          x: targetX,
           y: 0,
           z: 0,
           ease: "power2.out"
@@ -101,7 +118,7 @@ function ControladorCamara({ objetivo, isMobile }: { objetivo: any, isMobile: bo
       // 2. ANIMAR POSICIÓN DE LA CÁMARA
       gsap.to(camera.position, {
         duration: 1.5,
-        x: targetX, // Misma X que el planeta para verlo de frente
+        x: targetX,
         y: heightY,
         z: distZ,
         ease: "power2.out",
@@ -113,17 +130,28 @@ function ControladorCamara({ objetivo, isMobile }: { objetivo: any, isMobile: bo
 
     } else {
       // RESET A VISTA GENERAL
-      if (controls) gsap.to(controls.target, { duration: 2, x: 0, y: 0, z: 0 })
-      
+      gsap.killTweensOf(camera.position)
+      gsap.killTweensOf(camera)
+      if (controls) {
+        gsap.killTweensOf(controls.target)
+        gsap.to(controls.target, { duration: 2, x: 0, y: 0, z: 0 })
+      }
+
       gsap.to(camera.position, {
         duration: 2,
-        x: 0, y: 80, z: 140,
+        x: 0, y: 100, z: 200,
         ease: "power3.inOut",
         onUpdate: () => {
           camera.fov = THREE.MathUtils.lerp(camera.fov, 45, 0.1)
           camera.updateProjectionMatrix()
         }
       })
+    }
+
+    return () => {
+      gsap.killTweensOf(camera.position)
+      gsap.killTweensOf(camera)
+      if (controls) gsap.killTweensOf(controls.target)
     }
   }, [objetivo, isMobile, camera, controls])
 
@@ -144,13 +172,15 @@ function App() {
     <div className="h-screen w-full bg-black relative overflow-hidden font-sans">
       <PantallaCarga />
       
-      <Canvas 
-        camera={{ position: [0, 80, 120], fov: 45 }} 
-        // He corregido el error de sintaxis en 'gl' que tenías aquí
-        gl={{ powerPreference: "high-performance", antialias: true }}
+      <Canvas
+        camera={{ position: [0, 100, 200], fov: 50 }}
+        gl={{ powerPreference: "high-performance", antialias: !isMobile }}
+        dpr={[1, 1.5]}
+        performance={{ min: 0.5 }}
       >
         <ambientLight intensity={0.15} />
-        
+        <AdaptiveDpr pixelated />
+
         <Suspense fallback={null}>
           <Sol alHacerClick={(e) => activar('sol', e)} />
           <Mercurio alHacerClick={(e) => activar('mercurio', e)} activo={planetaActivo?.id === 'mercurio'} />
@@ -162,12 +192,15 @@ function App() {
             lunaActiva={planetaActivo?.id === 'luna'} 
           />
           <Marte alHacerClick={(e) => activar('marte', e)} activo={planetaActivo?.id === 'marte'} />
-          
-          <Stars radius={300} count={12000} factor={4} fade speed={0.5} />
+          <Jupiter alHacerClick={(e) => activar('jupiter', e)} activo={planetaActivo?.id === 'jupiter'} />
+          <Saturno alHacerClick={(e) => activar('saturno', e)} activo={planetaActivo?.id === 'saturno'} />
+          <Urano alHacerClick={(e) => activar('urano', e)} activo={planetaActivo?.id === 'urano'} />
+          <Neptuno alHacerClick={(e) => activar('neptuno', e)} activo={planetaActivo?.id === 'neptuno'} />
+
+          <Stars radius={500} count={6000} factor={4} fade speed={0.5} />
         </Suspense>
 
-        {/* 'makeDefault' permite que el ControladorCamara modifique el target */}
-        <OrbitControls makeDefault enablePan={false} minDistance={3} maxDistance={250} />
+        <OrbitControls makeDefault enablePan={false} minDistance={3} maxDistance={600} enableDamping dampingFactor={0.05} regress />
         
         <ControladorCamara objetivo={planetaActivo} isMobile={isMobile} />
       </Canvas>

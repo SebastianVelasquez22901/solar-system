@@ -10,30 +10,6 @@
     ]
   },
   {
-    "id": "tierra",
-    "nombre": "Planeta Tierra",
-    "descripcion": "Nuestro hogar. El único lugar conocido con vida.",
-    "datosCuriosos": ["Tiene un campo magnético protector.", "Su atmósfera es 78% nitrógeno."]
-  },
-  {
-    "id": "luna",
-    "nombre": "La Luna",
-    "descripcion": "Satélite natural de la Tierra.",
-    "datosCuriosos": ["Se está alejando de la Tierra.", "Controla las mareas."]
-  },
-  {
-    "id": "venus",
-    "nombre": "Venus",
-    "descripcion": "El planeta más caliente del sistema solar debido a su efecto invernadero.",
-    "datosCuriosos": ["Un día en Venus dura más que un año en Venus.", "Gira en sentido contrario.", "Temperatura de 462°C."]
-  },
-  {
-    "id": "marte",
-    "nombre": "Marte",
-    "descripcion": "El planeta rojo. Candidato para la colonización.",
-    "datosCuriosos": ["Tiene el volcán más alto (Monte Olimpo).", "Tiene dos lunas: Fobos y Deimos.", "Es rojo por óxido de hierro."]
-  },
-  {
     "id": "mercurio",
     "nombre": "Mercurio",
     "descripcion": "El planeta más pequeño y cercano al Sol. Tiene temperaturas extremas y carece de atmósfera significativa.",
@@ -41,6 +17,86 @@
       "Un año en Mercurio dura solo 88 días terrestres.",
       "Tiene arrugas (escarpes) porque se está encogiendo al enfriarse.",
       "A pesar de estar tan cerca del Sol, tiene hielo en sus cráteres polares."
+    ]
+  },
+  {
+    "id": "venus",
+    "nombre": "Venus",
+    "descripcion": "El planeta más caliente del sistema solar debido a su efecto invernadero.",
+    "datosCuriosos": [
+      "Un día en Venus dura más que un año en Venus.",
+      "Gira en sentido contrario al resto de planetas.",
+      "Temperatura superficial de 462°C."
+    ]
+  },
+  {
+    "id": "tierra",
+    "nombre": "Planeta Tierra",
+    "descripcion": "Nuestro hogar. El único lugar conocido con vida en todo el universo.",
+    "datosCuriosos": [
+      "Tiene un campo magnético protector contra el viento solar.",
+      "Su atmósfera es 78% nitrógeno y 21% oxígeno.",
+      "El 71% de su superficie está cubierta de agua."
+    ]
+  },
+  {
+    "id": "luna",
+    "nombre": "La Luna",
+    "descripcion": "Satélite natural de la Tierra y el único cuerpo celeste fuera de la Tierra pisado por humanos.",
+    "datosCuriosos": [
+      "Se está alejando de la Tierra ~3.8 cm por año.",
+      "Controla las mareas oceánicas de la Tierra.",
+      "El ser humano llegó por primera vez en julio de 1969."
+    ]
+  },
+  {
+    "id": "marte",
+    "nombre": "Marte",
+    "descripcion": "El planeta rojo. Principal candidato para la futura colonización humana.",
+    "datosCuriosos": [
+      "Tiene el volcán más alto del sistema solar: el Monte Olimpo (22 km).",
+      "Tiene dos lunas pequeñas: Fobos y Deimos.",
+      "Es rojo por el óxido de hierro (herrumbre) en su superficie."
+    ]
+  },
+  {
+    "id": "jupiter",
+    "nombre": "Júpiter",
+    "descripcion": "El gigante gaseoso y el planeta más grande del sistema solar. Su masa es más del doble que todos los demás planetas juntos.",
+    "datosCuriosos": [
+      "La Gran Mancha Roja es una tormenta activa por más de 400 años.",
+      "Tiene 95 lunas conocidas, incluyendo las 4 lunas galileanas.",
+      "Un día en Júpiter dura solo 10 horas terrestres."
+    ]
+  },
+  {
+    "id": "saturno",
+    "nombre": "Saturno",
+    "descripcion": "El señor de los anillos. Sus impresionantes anillos están compuestos principalmente de hielo y roca.",
+    "datosCuriosos": [
+      "Sus anillos se extienden hasta 282,000 km de distancia.",
+      "Es tan poco denso que flotaría en el agua.",
+      "Tiene 146 lunas conocidas, incluyendo Titán con atmósfera propia."
+    ]
+  },
+  {
+    "id": "urano",
+    "nombre": "Urano",
+    "descripcion": "El gigante de hielo que gira de lado. Su eje está inclinado casi 98° respecto a su órbita, lo que hace que sus estaciones duren 21 años.",
+    "datosCuriosos": [
+      "Un año en Urano dura 84 años terrestres.",
+      "Tiene 13 anillos y 28 lunas conocidas.",
+      "Sus temperaturas llegan a -224°C, siendo el planeta más frío del sistema solar."
+    ]
+  },
+  {
+    "id": "neptuno",
+    "nombre": "Neptuno",
+    "descripcion": "El gigante de hielo más lejano. Tiene los vientos más veloces del sistema solar y una gran mancha oscura similar a la Gran Mancha Roja de Júpiter.",
+    "datosCuriosos": [
+      "Los vientos en Neptuno alcanzan 2,100 km/h.",
+      "Un año en Neptuno dura 165 años terrestres.",
+      "Fue descubierto en 1846 mediante predicciones matemáticas antes de ser observado."
     ]
   }
 ]

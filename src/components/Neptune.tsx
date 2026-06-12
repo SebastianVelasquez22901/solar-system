@@ -1,17 +1,15 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
-import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 
-interface MarteProps {
+interface NeptunoProps {
   alHacerClick: (e: ThreeEvent<MouseEvent>) => void;
   activo: boolean;
 }
 
-export function Marte({ alHacerClick, activo }: MarteProps) {
+export function Neptuno({ alHacerClick, activo }: NeptunoProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
-  const colorMap = useTexture('./textures/mars.webp')
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {
@@ -20,18 +18,17 @@ export function Marte({ alHacerClick, activo }: MarteProps) {
           orbitaRef.current.rotation.y, 0, 1 - Math.exp(-3 * delta)
         )
       } else {
-        orbitaRef.current.rotation.y += 0.09 * delta
+        orbitaRef.current.rotation.y += 0.024 * delta
       }
     }
-    if (meshRef.current) meshRef.current.rotation.y += 0.24 * delta
+    if (meshRef.current) meshRef.current.rotation.y += 0.15 * delta
   })
 
   return (
     <group ref={orbitaRef}>
-      {/* ¡IMPORTANTE! Posición 100 */}
-      <mesh ref={meshRef} position={[100, 0, 0]} scale={1.8} onClick={alHacerClick}>
-        <sphereGeometry args={[1, 20, 20]} />
-        <meshStandardMaterial map={colorMap} roughness={0.7} />
+      <mesh ref={meshRef} position={[290, 0, 0]} scale={2.7} onClick={alHacerClick}>
+        <sphereGeometry args={[1, 24, 24]} />
+        <meshStandardMaterial color="#3b6fd4" roughness={0.4} metalness={0.1} />
       </mesh>
     </group>
   )

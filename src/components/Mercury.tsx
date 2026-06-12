@@ -13,22 +13,24 @@ export function Mercurio({ alHacerClick, activo }: MercurioProps) {
   const meshRef = useRef<THREE.Mesh>(null!)
   const colorMap = useTexture('./textures/mercury.webp')
 
-  useFrame(() => {
+  useFrame((_state, delta) => {
     if (orbitaRef.current) {
       if (activo) {
-        orbitaRef.current.rotation.y = THREE.MathUtils.lerp(orbitaRef.current.rotation.y, 0, 0.05)
+        orbitaRef.current.rotation.y = THREE.MathUtils.lerp(
+          orbitaRef.current.rotation.y, 0, 1 - Math.exp(-3 * delta)
+        )
       } else {
-        orbitaRef.current.rotation.y += 0.004 
+        orbitaRef.current.rotation.y += 0.24 * delta
       }
     }
-    if (meshRef.current) meshRef.current.rotation.y += 0.001
+    if (meshRef.current) meshRef.current.rotation.y += 0.06 * delta
   })
 
   return (
     <group ref={orbitaRef}>
       {/* ¡IMPORTANTE! Posición 25 para coincidir con App.tsx */}
       <mesh ref={meshRef} position={[25, 0, 0]} scale={0.8} onClick={alHacerClick}>
-        <sphereGeometry args={[1, 32, 32]} />
+        <sphereGeometry args={[1, 16, 16]} />
         <meshStandardMaterial map={colorMap} roughness={0.9} metalness={0.1} />
       </mesh>
     </group>
