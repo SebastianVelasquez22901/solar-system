@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
+import { resizeTexture } from '../utils/resizeTexture'
 import * as THREE from 'three'
 
 interface VenusProps {
@@ -11,7 +12,12 @@ interface VenusProps {
 export function Venus({ alHacerClick, activo }: VenusProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const planetaRef = useRef<THREE.Group>(null!)
-  const [surfaceMap, atmosphereMap] = useTexture(['./textures/venus_surface.webp', './textures/venus_atmosphere.webp'])
+  const [surfaceMap, atmosphereMap] = useTexture(
+    ['./textures/venus_surface.webp', './textures/venus_atmosphere.webp'],
+    (textures) => {
+      resizeTexture((textures as THREE.Texture[])[0], 2048)
+    }
+  )
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {

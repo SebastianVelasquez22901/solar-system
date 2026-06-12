@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
+import { resizeTexture } from '../utils/resizeTexture'
 import * as THREE from 'three'
 
 interface LunaProps {
@@ -11,7 +12,9 @@ interface LunaProps {
 export function Luna({ alHacerClick, activo }: LunaProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const lunaMeshRef = useRef<THREE.Mesh>(null!)
-  const colorMap = useTexture('./textures/moon.webp')
+  const colorMap = useTexture('./textures/moon.webp', (t) => {
+    resizeTexture(t as THREE.Texture, 1024)
+  })
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {

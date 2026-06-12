@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
+import { resizeTexture } from '../utils/resizeTexture'
 import * as THREE from 'three'
 
 interface MarteProps {
@@ -11,7 +12,9 @@ interface MarteProps {
 export function Marte({ alHacerClick, activo }: MarteProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
-  const colorMap = useTexture('./textures/mars.webp')
+  const colorMap = useTexture('./textures/mars.webp', (t) => {
+    resizeTexture(t as THREE.Texture, 2048)
+  })
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {

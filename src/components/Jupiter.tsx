@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
+import { resizeTexture } from '../utils/resizeTexture'
 import * as THREE from 'three'
 
 interface JupiterProps {
@@ -11,7 +12,9 @@ interface JupiterProps {
 export function Jupiter({ alHacerClick, activo }: JupiterProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
-  const texture = useTexture('./textures/8k_jupiter.jpg')
+  const texture = useTexture('./textures/8k_jupiter.jpg', (t) => {
+    resizeTexture(t as THREE.Texture, 2048)
+  })
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {
@@ -29,7 +32,7 @@ export function Jupiter({ alHacerClick, activo }: JupiterProps) {
   return (
     <group ref={orbitaRef}>
       <mesh ref={meshRef} position={[145, 0, 0]} scale={4.5} onClick={alHacerClick}>
-        <sphereGeometry args={[1, 32, 32]} />
+        <sphereGeometry args={[1, 28, 28]} />
         <meshStandardMaterial map={texture} roughness={0.7} />
       </mesh>
     </group>

@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
+import { resizeTexture } from '../utils/resizeTexture'
 import * as THREE from 'three'
-import { Luna } from './Moon' // Ojo con la ruta de tu archivo Luna
+import { Luna } from './Moon'
 
 interface TierraProps {
   alHacerClick: (e: ThreeEvent<MouseEvent>) => void;
@@ -14,7 +15,14 @@ interface TierraProps {
 export function Tierra({ alHacerClick, alHacerClickLuna, activo, lunaActiva }: TierraProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const planetaRef = useRef<THREE.Group>(null!)
-  const [colorMap, cloudsMap] = useTexture(['./textures/earth.webp', './textures/earth_clouds.webp'])
+  const [colorMap, cloudsMap] = useTexture(
+    ['./textures/earth.webp', './textures/earth_clouds.webp'],
+    (textures) => {
+      const [color, clouds] = textures as THREE.Texture[]
+      resizeTexture(color, 2048)
+      resizeTexture(clouds, 1024)
+    }
+  )
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {

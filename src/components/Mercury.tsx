@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
+import { resizeTexture } from '../utils/resizeTexture'
 import * as THREE from 'three'
 
 interface MercurioProps {
@@ -11,7 +12,9 @@ interface MercurioProps {
 export function Mercurio({ alHacerClick, activo }: MercurioProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
-  const colorMap = useTexture('./textures/mercury.webp')
+  const colorMap = useTexture('./textures/mercury.webp', (t) => {
+    resizeTexture(t as THREE.Texture, 1024)
+  })
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {
