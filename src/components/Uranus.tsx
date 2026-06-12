@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
+import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 
 interface UranoProps {
@@ -10,6 +11,7 @@ interface UranoProps {
 export function Urano({ alHacerClick, activo }: UranoProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
+  const texture = useTexture('./textures/2k_uranus.jpg')
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {
@@ -30,9 +32,9 @@ export function Urano({ alHacerClick, activo }: UranoProps) {
       <group position={[240, 0, 0]} rotation={[0, 0, 1.71]} onClick={alHacerClick}>
         <mesh ref={meshRef} scale={2.8}>
           <sphereGeometry args={[1, 24, 24]} />
-          <meshStandardMaterial color="#7de8e0" roughness={0.3} metalness={0.05} />
+          <meshStandardMaterial map={texture} roughness={0.3} metalness={0.05} />
         </mesh>
-        {/* Anillos finos en el plano ecuatorial (perpendicular al eje inclinado) */}
+        {/* Anillos finos en el plano ecuatorial */}
         <mesh scale={2.8} rotation={[Math.PI / 2, 0, 0]}>
           <ringGeometry args={[1.28, 1.55, 64]} />
           <meshStandardMaterial

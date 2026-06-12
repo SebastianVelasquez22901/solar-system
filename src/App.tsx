@@ -1,6 +1,6 @@
 import { useState, useEffect, Suspense } from 'react'
 import { Canvas, useThree, type ThreeEvent } from '@react-three/fiber'
-import { OrbitControls, Stars, useProgress, AdaptiveDpr } from '@react-three/drei'
+import { OrbitControls, useProgress, AdaptiveDpr, useTexture } from '@react-three/drei'
 import { Tierra } from './components/Earth'
 import { Venus } from './components/Venus'
 import { Marte } from './components/Mars'
@@ -50,6 +50,17 @@ function PantallaCarga() {
         <div className="h-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all duration-300 ease-out" style={{ width: `${progress}%` }} />
       </div>
     </div>
+  )
+}
+
+// --- FONDO VÍA LÁCTEA ---
+function FondoMilkyWay() {
+  const texture = useTexture('./textures/2k_stars_milky_way.jpg')
+  return (
+    <mesh>
+      <sphereGeometry args={[900, 32, 16]} />
+      <meshBasicMaterial map={texture} side={THREE.BackSide} />
+    </mesh>
   )
 }
 
@@ -197,7 +208,7 @@ function App() {
           <Urano alHacerClick={(e) => activar('urano', e)} activo={planetaActivo?.id === 'urano'} />
           <Neptuno alHacerClick={(e) => activar('neptuno', e)} activo={planetaActivo?.id === 'neptuno'} />
 
-          <Stars radius={500} count={6000} factor={4} fade speed={0.5} />
+          <FondoMilkyWay />
         </Suspense>
 
         <OrbitControls makeDefault enablePan={false} minDistance={3} maxDistance={600} enableDamping dampingFactor={0.05} regress />

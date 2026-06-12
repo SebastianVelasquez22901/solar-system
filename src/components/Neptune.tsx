@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
+import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 
 interface NeptunoProps {
@@ -10,6 +11,7 @@ interface NeptunoProps {
 export function Neptuno({ alHacerClick, activo }: NeptunoProps) {
   const orbitaRef = useRef<THREE.Group>(null!)
   const meshRef = useRef<THREE.Mesh>(null!)
+  const texture = useTexture('./textures/2k_neptune.jpg')
 
   useFrame((_state, delta) => {
     if (orbitaRef.current) {
@@ -28,7 +30,7 @@ export function Neptuno({ alHacerClick, activo }: NeptunoProps) {
     <group ref={orbitaRef}>
       <mesh ref={meshRef} position={[290, 0, 0]} scale={2.7} onClick={alHacerClick}>
         <sphereGeometry args={[1, 24, 24]} />
-        <meshStandardMaterial color="#3b6fd4" roughness={0.4} metalness={0.1} />
+        <meshStandardMaterial map={texture} roughness={0.4} metalness={0.1} />
       </mesh>
     </group>
   )
